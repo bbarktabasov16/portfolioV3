@@ -1,16 +1,15 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { IoCopyOutline } from "react-icons/io5";
 import dynamic from "next/dynamic";
 import { cn } from "@/lib/utils";
-
 import { BackgroundGradientAnimation } from "./GradientBg";
 import GridGlobe from "./GridGlobe";
 import animationData from "@/data/confetti.json";
 import MagicButton from "../MagicButton";
 
 // Динамический импорт компонента Lottie
-const Lottie = dynamic(() => import("react-lottie"), {
-  ssr: false, // Отключаем серверный рендеринг для этого компонента
+const DynamicLottie = dynamic(() => import("react-lottie-player"), {
+  ssr: false,
 });
 
 export const BentoGrid = ({
@@ -55,15 +54,11 @@ export const BentoGridItem = ({
   const rightLists = ["Redux", "NodeJS", "SCSS"];
 
   const [copied, setCopied] = useState(false);
+  const [isClient, setIsClient] = useState(false);
 
-  const defaultOptions = {
-    loop: copied,
-    autoplay: copied,
-    animationData: animationData,
-    rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice",
-    },
-  };
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   const handleCopy = () => {
     const text = "bbarktabasov16@gmail.com";
@@ -158,14 +153,19 @@ export const BentoGridItem = ({
               </div>
             </div>
           )}
-          {id === 6 && (
+          {id === 6 && isClient && (
             <div className="mt-5 relative">
               <div
                 className={`absolute -bottom-5 right-0 ${
                   copied ? "block" : "block"
                 }`}
               >
-                <Lottie options={defaultOptions} height={200} width={400} />
+                <DynamicLottie
+                  loop={copied}
+                  play={copied}
+                  animationData={animationData}
+                  style={{ width: 400, height: 200 }}
+                />
               </div>
 
               <MagicButton
