@@ -1,15 +1,17 @@
 import { useState } from "react";
 import { IoCopyOutline } from "react-icons/io5";
-
-import Lottie from "react-lottie";
-
+import dynamic from "next/dynamic";
 import { cn } from "@/lib/utils";
-
 
 import { BackgroundGradientAnimation } from "./GradientBg";
 import GridGlobe from "./GridGlobe";
 import animationData from "@/data/confetti.json";
 import MagicButton from "../MagicButton";
+
+// Динамический импорт компонента Lottie
+const Lottie = dynamic(() => import("react-lottie"), {
+  ssr: false, // Отключаем серверный рендеринг для этого компонента
+});
 
 export const BentoGrid = ({
   className,
@@ -21,7 +23,6 @@ export const BentoGrid = ({
   return (
     <div
       className={cn(
-        
         "grid grid-cols-1 md:grid-cols-6 lg:grid-cols-5 md:grid-row-7 gap-4 lg:gap-8 mx-auto",
         className
       )}
@@ -77,13 +78,11 @@ export const BentoGridItem = ({
         className
       )}
       style={{
-        
         background: "rgb(4,7,29)",
         backgroundColor:
           "linear-gradient(90deg, rgba(4,7,29,1) 0%, rgba(12,14,35,1) 100%)",
       }}
     >
-
       <div className={`${id === 6 && "flex justify-center"} h-full`}>
         <div className="w-full h-full absolute">
           {img && (
@@ -95,8 +94,9 @@ export const BentoGridItem = ({
           )}
         </div>
         <div
-          className={`absolute right-0 -bottom-5 ${id === 5 && "w-full opacity-80"
-            } `}
+          className={`absolute right-0 -bottom-5 ${
+            id === 5 && "w-full opacity-80"
+          } `}
         >
           {spareImg && (
             <img
@@ -161,8 +161,9 @@ export const BentoGridItem = ({
           {id === 6 && (
             <div className="mt-5 relative">
               <div
-                className={`absolute -bottom-5 right-0 ${copied ? "block" : "block"
-                  }`}
+                className={`absolute -bottom-5 right-0 ${
+                  copied ? "block" : "block"
+                }`}
               >
                 <Lottie options={defaultOptions} height={200} width={400} />
               </div>
