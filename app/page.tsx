@@ -1,27 +1,21 @@
 "use client";
 
-import { navItems } from "@/data";
-
-import Hero from "@/components/Hero";
-import Grid from "@/components/Grid";
-import Footer from "@/components/Footer";
-import Approach from "@/components/Approach";
-import RecentProjects from "@/components/RecentProjects";
-import { FloatingNav } from "@/components/ui/FloatingNavbar";
+import { useState, useEffect } from "react";
+import App from "./App";
+import Preloader from "@/components/Preloader/Preloader";
 
 const Home = () => {
-  return (
-    <main className="relative bg-black-100 flex justify-center items-center flex-col mx-auto sm:px-10 px-5 overflow-clip">
-      <div className="max-w-7xl w-full">
-        <FloatingNav navItems={navItems} />
-        <Hero />
-        <Grid />
-        <RecentProjects />
-        <Approach />
-        <Footer />
-      </div>
-    </main>
-  );
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 4000);
+
+    return () => clearTimeout(timer); // Очистка таймера при размонтировании компонента
+  }, []);
+
+  return <>{loading ? <Preloader /> : <App />}</>;
 };
 
 export default Home;

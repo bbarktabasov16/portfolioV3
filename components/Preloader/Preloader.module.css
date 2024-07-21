@@ -1,0 +1,44 @@
+.preloader {
+	height: 100vh;
+	background: #000319;
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+	flex-direction: column;
+}
+
+.container {
+	height: 30vh;
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+	flex-direction: column;
+}
+
+.container img {
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+}
+
+.scale {
+	width: 10px;
+	height: 15px;
+	background-color: rgba(255, 255, 255, 0.125);
+	border-radius: 10px;
+	animation: animate-scale 5s ease-in-out;
+}
+
+@keyframes animate-scale {
+	0% {
+
+		width: 10px;
+
+	}
+
+	100% {
+
+		width: 200px;
+
+	}
+}
